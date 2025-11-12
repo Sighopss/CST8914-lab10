@@ -60,8 +60,17 @@ class MenuButtonActions {
   }
 
   setFocusToMenuitem(newMenuitem) {
+    if (!newMenuitem) {
+      return;
+    }
+
     this.menuitemNodes.forEach(function (item) {
-// TOUFIC'S COMMENT: Placeholder for the roving tabindex logic  ;)
+      if (item === newMenuitem) {
+        item.tabIndex = 0;
+        item.focus();
+      } else {
+        item.tabIndex = -1;
+      }
     });
   }
 
@@ -318,7 +327,7 @@ class MenuButtonActions {
 
   onMenuitemMouseover(event) {
     var tgt = event.currentTarget;
-    tgt.focus();
+    this.setFocusToMenuitem(tgt);
   }
 
   onBackgroundMousedown(event) {
